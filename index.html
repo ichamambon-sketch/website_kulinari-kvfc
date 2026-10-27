@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KVFC</title>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1b1340;--bg2:#2a1d63;--cheese:#ffc93c;--red:#ff4a3d;--pink:#ff8fb8;--mint:#3ddbb0;--ink:#fff8e7;--mut:#c8bfe8;--card:#fff8e7;--cardink:#1b1340;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#150e33}}
+:root[data-theme="dark"]{--bg:#150e33}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;font-weight:700;overflow-x:hidden}
+h1,h2,h3{font-family:'Bagel Fat One','Nunito',sans-serif;font-weight:400;margin:0}
+button,input,select{font:inherit}
+.float{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.float span{position:absolute;bottom:-60px;font-size:34px;opacity:.5;animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-115vh) rotate(360deg)}}
+header,main,footer{position:relative;z-index:1}
+.hero{text-align:center;padding:64px 20px 0;min-height:88vh;display:flex;flex-direction:column;align-items:center}
+.hero h1{font-size:clamp(96px,26vw,230px);line-height:.9;color:var(--cheese);text-shadow:0 8px 0 var(--red);animation:pop .9s cubic-bezier(.2,1.6,.4,1) both}
+.hero h1 i{display:inline-block;font-style:normal;animation:wob 2.4s ease-in-out infinite}
+.hero h1 i:nth-child(2){animation-delay:.2s}.hero h1 i:nth-child(3){animation-delay:.4s}.hero h1 i:nth-child(4){animation-delay:.6s}
+@keyframes wob{50%{transform:translateY(-12px) rotate(-3deg)}}
+@keyframes pop{from{transform:scale(.2) rotate(-12deg);opacity:0}}
+.hero p{max-width:30ch;font-size:20px;color:var(--mut);margin:18px 0 26px}
+.drip{width:min(520px,90vw);height:90px;margin-top:-6px}
+.drip path{fill:var(--cheese);transform-origin:top;animation:drip 3s ease-in-out infinite}
+.drip path:nth-child(2){animation-delay:.7s}.drip path:nth-child(3){animation-delay:1.3s}
+@keyframes drip{50%{transform:scaleY(1.35)}}
+.btn{background:var(--cheese);color:var(--bg);border:0;border-radius:999px;padding:14px 28px;font-weight:800;font-size:18px;cursor:pointer;box-shadow:0 5px 0 var(--red);transition:transform .15s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--red)}
+.btn.sm{padding:8px 16px;font-size:15px;box-shadow:0 3px 0 var(--red)}
+.btn.alt{background:var(--mint);box-shadow:0 3px 0 #178a6c}
+:focus-visible{outline:3px solid var(--mint);outline-offset:3px}
+.marq{background:var(--red);overflow:hidden;white-space:nowrap;transform:rotate(-1.5deg);margin:30px -10px;padding:10px 0}
+.marq div{display:inline-block;animation:mq 22s linear infinite;font-family:'Bagel Fat One';font-size:24px}
+@keyframes mq{to{transform:translateX(-50%)}}
+section{max-width:980px;margin:0 auto;padding:40px 18px}
+h2{font-size:clamp(34px,7vw,52px);color:var(--cheese);margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+.card{background:var(--card);color:var(--cardink);border-radius:28px;padding:22px;position:relative;transition:transform .25s cubic-bezier(.2,1.6,.4,1)}
+.card:hover{transform:translateY(-8px) rotate(-1.5deg)}
+.card .em{font-size:64px;display:inline-block;animation:wob 3s ease-in-out infinite}
+.card h3{font-size:26px;margin:6px 0}.card p{margin:0 0 14px;opacity:.8}
+.price{font-family:'Bagel Fat One';font-size:30px;color:var(--red)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.qty{display:flex;align-items:center;gap:10px}
+.qty button{width:38px;height:38px;border-radius:50%;border:0;background:var(--bg);color:var(--cheese);font-size:22px;cursor:pointer}
+.qty b{min-width:22px;text-align:center;font-size:20px}
+.left{display:inline-block;background:var(--red);color:#fff;border-radius:999px;padding:3px 12px;font-size:13px;margin:0 0 12px}
+.sold{position:absolute;inset:0;border-radius:28px;background:rgba(27,19,64,.82);color:var(--cheese);display:grid;place-items:center;font-family:'Bagel Fat One';font-size:34px;transform:rotate(-6deg)}
+.form{background:var(--bg2);border-radius:28px;padding:24px;display:grid;gap:14px}
+label{display:grid;gap:6px;color:var(--mut)}
+input,select{padding:13px 16px;border-radius:14px;border:2px solid transparent;background:var(--card);color:var(--cardink);font-weight:700}
+.pay{display:flex;gap:10px}.pay label{flex:1;display:block}
+.pay input{position:absolute;opacity:0}
+.pay span{display:block;text-align:center;padding:12px;border-radius:14px;background:var(--bg);cursor:pointer;color:var(--ink)}
+.pay input:checked+span{background:var(--mint);color:var(--bg)}
+.pay input:focus-visible+span{outline:3px solid var(--cheese)}
+.total{font-family:'Bagel Fat One';font-size:34px;color:var(--cheese)}
+.msg{padding:14px;border-radius:14px;background:var(--mint);color:var(--bg)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tabs button{border:0;border-radius:999px;padding:10px 18px;cursor:pointer;background:var(--bg2);color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--cheese);color:var(--bg)}
+.ord{background:var(--card);color:var(--cardink);border-radius:20px;padding:16px;margin-bottom:12px;animation:pop .5s both}
+.tag{display:inline-block;border-radius:999px;padding:3px 12px;font-size:13px;background:var(--red);color:#fff}
+.tag.siap{background:#178a6c}.tag.selesai{background:#6a6a8a}
+.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%}td,th{padding:8px;text-align:left;white-space:nowrap}
+.snd{position:fixed;right:max(14px,env(safe-area-inset-right,0px));top:calc(14px + env(safe-area-inset-top,0px));z-index:5;width:52px;height:52px;border-radius:50%;border:0;background:var(--cheese);font-size:24px;cursor:pointer;box-shadow:0 4px 0 var(--red)}
+.staff{position:fixed;left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:5}
+.pf{position:fixed;pointer-events:none;z-index:9;font-size:30px;animation:burst 1s ease-out forwards}
+@keyframes burst{to{transform:translate(var(--x),var(--y)) rotate(300deg);opacity:0}}
+footer{text-align:center;padding:40px 18px 90px;color:var(--mut)}
+.pic{display:block;width:100%;height:170px;object-fit:cover;border-radius:20px;margin-bottom:6px}.pic.sm{width:72px;height:72px;margin:0;border-radius:14px}
+.dlg{border:0;border-radius:28px;padding:26px;background:var(--bg2);color:var(--ink);width:min(380px,92vw)}
+.dlg::backdrop{background:rgba(10,6,30,.75)}
+.dlg form{display:grid;gap:14px}.dlg h3{color:var(--cheese);font-size:30px}
+.err{color:#ffb3ad;min-height:1.2em}
+.staff.out{left:auto;right:max(14px,env(safe-area-inset-right,0px));background:var(--red);color:#fff;box-shadow:0 3px 0 #8f241c}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="float" id="fl" aria-hidden="true"></div>
+<button class="snd" id="snd" aria-label="Pasang atau matikan muzik" title="Muzik">🔇</button>
+<header class="hero">
+  <h1 aria-label="KVFC"><i>K</i><i>V</i><i>F</i><i>C</i></h1>
+  <svg class="drip" viewBox="0 0 520 90" aria-hidden="true"><path d="M0 0h520v14c-20 0-24 40-34 40s-12-40-34-40-20 20-30 20-10-20-30-20-18 66-30 66-14-66-30-66-22 30-34 30-18-30-34-30-20 50-30 50-14-50-30-50-20 24-34 24-18-24-34-24-16 36-30 36S28 14 0 14z"/><path d="M60 10h40v40c0 20-40 20-40 0z" opacity=".9"/><path d="M330 10h36v50c0 18-36 18-36 0z" opacity=".9"/></svg>
+  <p>Chicken tender, popia, popis & aiskrim homemade. Pilih, order, kami hantar ke bilik anda.</p>
+  <button class="btn" onclick="document.getElementById('menu').scrollIntoView()">Pilih menu</button>
+</header>
+<div class="marq" aria-hidden="true"><div>🍗 Chicken Tender 🧀 Dip Cheese Sauce 🥟 Popia Big Mac 🍫 Popis Chocolate Dip 🍦 Homemade Ice Cream &nbsp; 🍗 Chicken Tender 🧀 Dip Cheese Sauce 🥟 Popia Big Mac 🍫 Popis Chocolate Dip 🍦 Homemade Ice Cream &nbsp; 🍗 Chicken Tender 🧀 Dip Cheese Sauce 🥟 Popia Big Mac 🍫 Popis Chocolate Dip 🍦 Homemade Ice Cream &nbsp; 🍗 Chicken Tender 🧀 Dip Cheese Sauce 🥟 Popia Big Mac 🍫 Popis Chocolate Dip 🍦 Homemade Ice Cream &nbsp;</div></div>
+<main>
+<section id="menu"><h2>Menu</h2><div class="grid" id="mgrid"></div></section>
+<section id="order"><h2>Order sekarang</h2>
+  <div class="form" id="oform">
+    <div class="total" id="tot">RM0</div><div id="sum"></div>
+    <label>Nama pembeli<input id="nm" placeholder="cth: Ali bin Abu" autocomplete="name"></label>
+    <label>Nombor telefon<input id="ph" type="tel" inputmode="tel" placeholder="cth: 012-3456789" autocomplete="tel"></label>
+    <label>Bilik (dorm)<input id="rm" placeholder="cth: Blok A, Bilik 12"></label>
+    <div class="pay" role="radiogroup" aria-label="Bayaran"><label><input type="radio" name="pay" value="Tunai" checked><span>💵 Tunai</span></label><label><input type="radio" name="pay" value="QR"><span>📱 QR</span></label></div>
+    <button class="btn" id="go">Hantar order</button>
+    <div id="res" role="status"></div>
+  </div>
+</section>
+<section id="admin" hidden><h2>Panel kaunter</h2>
+  <div id="live" role="status" style="font-size:14px;margin:0 0 10px;color:var(--mint)"></div>
+  <div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-t="in">Order masuk</button><button role="tab" aria-selected="false" data-t="rec">Rekod & jualan</button><button role="tab" aria-selected="false" data-t="mg" id="tmg">Urus menu</button><button role="tab" aria-selected="false" data-t="st" id="tst" hidden>Akses staf</button></div>
+  <div id="ap"></div>
+</section>
+</main>
+<footer>KVFC © 2026</footer>
+<button class="btn sm alt staff" id="stf">Staf</button>
+<button class="btn sm staff out" id="lo" hidden>Log keluar</button>
+<dialog class="dlg" id="lg" aria-labelledby="lgt">
+  <form id="lf">
+    <h3 id="lgt">Log masuk staf</h3>
+    <label>Email<input id="le" type="email" autocomplete="username" required></label>
+    <label>Kata laluan<input id="lp" type="password" autocomplete="current-password" required></label>
+    <div class="err" id="lerr" role="alert"></div>
+    <div style="display:flex;gap:10px"><button class="btn sm" type="submit">Log masuk</button><button class="btn sm alt" type="button" id="lc">Batal</button></div>
+  </form>
+</dialog>
+
+<script src="config.js"></script>
+<script>
+const $=s=>document.querySelector(s),RM=n=>'RM'+(+n).toFixed(n%1?2:0);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const DEF=[{id:'m1',name:'Chicken Tender',desc:'3 ketul ayam + 1 cawan dip cheese sauce',price:6,em:'🍗'},{id:'m2',name:'Popia Big Mac',desc:'2 pcs + 1 cawan dip cheese sauce',price:10,em:'🥟'},{id:'m3',name:'Homemade Ice Cream',desc:'4 scoop + topping (perisa boleh bertukar)',price:14,em:'🍦'},{id:'m4',name:'Popis',desc:'4 pcs + chocolate dip',price:6,em:'🍫'}];
+let menu=DEF.map(x=>({...x,stock:'',sold:false})),cart={},db=null,usr=null,me=null,staff=false,mgr=false,orders=[],tab='in',unsub=null,STAFF=null,pend=null,punsub=null,limits={},used={};
+// had pax harian: staf set had untuk hari ini; bila jumlah dibeli sampai had, hidangan automatik 'Habis'. Had tamat sendiri esok.
+const TD=()=>new Date().toLocaleDateString('sv');
+function lim(m){const l=limits[m.id];if(!l||l.day!=TD()||l.limit==null||l.limit==='')return null;const n=+((used[TD()+'_'+m.id]||{}).n||0),max=+l.limit;return{max,n,left:Math.max(0,max-n)}}
+let rf={day:'',name:'',room:'',pay:'Tunai',q:{}};
+const usedToday=m=>+((used[TD()+'_'+m.id]||{}).n||0);
+
+// floating food
+const fl=$('#fl');['🍗','🧀','🍦','🥟','🍫','🍗','🍦'].forEach((e,i)=>{for(let k=0;k<2;k++){const s=document.createElement('span');s.textContent=e;s.style.left=(Math.random()*95)+'%';s.style.animationDuration=(12+Math.random()*14)+'s';s.style.animationDelay=(-Math.random()*20)+'s';s.style.fontSize=(24+Math.random()*30)+'px';fl.appendChild(s)}});
+// click burst
+addEventListener('pointerdown',ev=>{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;for(let i=0;i<6;i++){const p=document.createElement('span');p.className='pf';p.textContent=['🍗','🧀','🍦','🥟','🍫'][i%5];p.style.left=ev.clientX+'px';p.style.top=ev.clientY+'px';p.style.setProperty('--x',(Math.random()*160-80)+'px');p.style.setProperty('--y',(Math.random()*-160-20)+'px');document.body.appendChild(p);setTimeout(()=>p.remove(),1000)}});
+
+// muzik: lagu riang 132 BPM (C-G-Am-F), disintesis dalam pelayar: melodi, chord ukulele, bass melantun, dram, bunyi berkilauan
+let ac,mx,nb,on=false,step=0,nextT=0,timer;
+const SP=60/132/2,hz=s=>261.63*Math.pow(2,s/12);
+const CH=[[0,4,7],[-1,2,7],[0,4,9],[0,5,9]],BR=[0,-5,-3,-7];
+const ML=[[12,null,9,12,16,null,12,null],[14,null,11,14,19,null,14,null],[12,null,9,12,16,12,9,null],[9,null,12,9,7,null,4,null],
+ [16,null,16,14,12,null,9,12],[14,null,14,12,11,null,14,null],[12,16,19,16,12,9,12,16],[17,null,16,null,12,null,null,null]];
+function audioInit(){mx=ac.createGain();mx.gain.value=1.2;const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=9000;const cp=ac.createDynamicsCompressor();mx.connect(lp);lp.connect(cp);cp.connect(ac.destination);
+ nb=ac.createBuffer(1,ac.sampleRate,ac.sampleRate);const d=nb.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}
+function tone(f,d,v,type='triangle',t){t=t||ac.currentTime;const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(v,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(mx);o.start(t);o.stop(t+d+.02)}
+function kick(t){const o=ac.createOscillator(),g=ac.createGain();o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(45,t+.12);g.gain.setValueAtTime(.22,t);g.gain.exponentialRampToValueAtTime(.0001,t+.18);o.connect(g);g.connect(mx);o.start(t);o.stop(t+.2)}
+function nz(t,d,v,type,f){const s=ac.createBufferSource(),fl=ac.createBiquadFilter(),g=ac.createGain();s.buffer=nb;fl.type=type;fl.frequency.value=f;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl);fl.connect(g);g.connect(mx);s.start(t);s.stop(t+d)}
+function play(i,t){const bar=(i>>3)%8,s=i%8,c=bar%4,n=ML[bar][s];
+ if(n!=null){const d=s%2?.14:.26;tone(hz(n),d,.05,'square',t);tone(hz(n-12),d,.03,'triangle',t)}      // melodi
+ if(s%2)CH[c].forEach(x=>tone(hz(x),.1,.028,'triangle',t));                                           // chord ukulele di off-beat
+ if(s==0||s==3||s==4||s==6)tone(hz(BR[c]-12+(s==4?7:0)),.2,.11,'triangle',t);                         // bass melantun
+ if(s==0||s==4)kick(t);if(s==2||s==6)nz(t,.14,.07,'bandpass',1800);nz(t,.04,s%2?.012:.022,'highpass',6000); // dram
+ if(c==3&&s>=4)tone(hz([12,16,19,24][s-4]+12),.14,.03,'sine',t)}                                      // kilauan hujung frasa
+function sched(){while(nextT<ac.currentTime+.5){play(step%64,nextT);nextT+=SP;step++}}
+$('#snd').onclick=()=>{if(!ac){ac=new (window.AudioContext||window.webkitAudioContext)();audioInit()}on=!on;$('#snd').textContent=on?'🔊':'🔇';if(on){ac.resume();nextT=ac.currentTime+.08;timer=setInterval(sched,60)}else clearInterval(timer)};
+const sfx=up=>{if(!on)return;if(up){tone(hz(16),.1,.07,'square');tone(hz(23),.14,.06,'square',ac.currentTime+.07)}else tone(hz(7),.1,.06,'square')};
+
+// menu
+function rm(){const g=$('#mgrid');g.innerHTML='';menu.forEach(m=>{const L=lim(m);if(L&&(cart[m.id]||0)>L.left)cart[m.id]=L.left;const out=m.sold||(m.stock!==''&&+m.stock<=0)||(L&&L.left<=0);const c=document.createElement('div');c.className='card';c.innerHTML=`${m.img?`<img class="pic" src="${esc(m.img)}" alt="${esc(m.name)}">`:`<span class="em">${m.em||'🍽️'}</span>`}<h3>${esc(m.name)}</h3><p>${esc(m.desc||'')}</p>${L&&L.left>0?`<div class="left">🔥 Tinggal ${L.left} pax hari ini</div>`:''}<div class="row"><span class="price">${RM(m.price)}</span><div class="qty"><button aria-label="Kurang">−</button><b>${cart[m.id]||0}</b><button aria-label="Tambah">+</button></div></div>${out?'<div class="sold">Habis!</div>':''}`;const[b1,b2]=c.querySelectorAll('button');b1.onclick=()=>chg(m,-1);b2.onclick=()=>chg(m,1);g.appendChild(c)});sumUp()}
+function chg(m,d){const q=Math.max(0,(cart[m.id]||0)+d);const L=lim(m);if(m.sold||(m.stock!==''&&q>+m.stock)||(L&&q>L.left))return;cart[m.id]=q;sfx(d>0);rm()}
+function sumUp(){let t=0,h='';menu.forEach(m=>{const q=cart[m.id]||0;if(q){t+=q*m.price;h+=`<div class="row"><span>${m.em||''} ${esc(m.name)} ×${q}</span><span>${RM(q*m.price)}</span></div>`}});$('#sum').innerHTML=h||'<span style="color:var(--mut)">Belum pilih apa-apa lagi.</span>';$('#tot').textContent=RM(t);return t}
+$('#go').onclick=async()=>{const items=menu.filter(m=>cart[m.id]).map(m=>({id:m.id,name:m.name,qty:cart[m.id],price:m.price}));const nm=$('#nm').value.trim(),ph=$('#ph').value.trim(),room=$('#rm').value.trim(),r=$('#res');
+if(!items.length)return r.innerHTML='<div class="msg" style="background:var(--cheese)">Pilih sekurang-kurangnya satu menu.</div>';
+if(!nm||!ph||!room)return r.innerHTML='<div class="msg" style="background:var(--cheese)">Isi nama, nombor telefon dan bilik.</div>';
+const o={items,total:sumUp(),name:nm,phone:ph,room,pay:document.querySelector('[name=pay]:checked').value,status:'baru',ts:Date.now(),day:new Date().toLocaleDateString('sv')};
+try{if(!db)throw 0;await db.order(o);r.innerHTML='<div class="msg">Order diterima! Kami akan telefon anda bila siap. 🎉</div>';cart={};rm();sfx(true)}catch(e){r.innerHTML=e&&e.code=='habis'?`<div class="msg" style="background:var(--red);color:#fff">Maaf, ${esc(e.item)} ${e.left>0?'tinggal '+e.left+' pax sahaja':'sudah habis'} hari ini. Sila kemas kini pilihan anda.</div>`:'<div class="msg" style="background:var(--red);color:#fff">Order gagal dihantar. Sila cuba lagi.</div>';if(e&&e.code=='habis'){if(e.left!=null&&e.id)cart[e.id]=Math.min(cart[e.id]||0,e.left);rm()}}};
+
+// staff
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{tab=b.dataset.t;document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x==b));ra()});
+// ra() dipanggil setiap kali data baru masuk (live). Jika staf sedang menaip dalam borang, tangguh sehingga habis menaip supaya kursor tak hilang.
+let raWait=false;
+function ra(){const p=$('#ap'),today=new Date().toLocaleDateString('sv'),ae=document.activeElement;
+if(tab!='in'&&tab!='st'&&ae&&p.contains(ae)&&/^(INPUT|SELECT|TEXTAREA)$/.test(ae.tagName)&&ae.type!='checkbox'){raWait=true;return}
+raWait=false;$('#tmg').hidden=!staff;$('#tst').hidden=!staff;if(tab=='st'&&!staff)tab='mg';
+if(tab=='in'){const l=orders.filter(o=>o.status!='selesai');p.innerHTML=l.length?l.map(o=>`<div class="ord"><div class="row"><b>${esc(o.name||'')} · ${esc(o.room)}</b><span class="tag ${o.status}">${o.status=='baru'?'Baru':'Siap'}</span></div><div>${o.items.map(i=>esc(i.name)+' ×'+i.qty).join(', ')}</div><div class="row"><span>${RM(o.total)} · ${esc(o.pay)}</span><span><a href="tel:${esc(o.phone)}" style="color:var(--red)">📞 ${esc(o.phone)}</a></span></div><div style="margin-top:10px;display:flex;gap:8px">${o.status=='baru'?`<button class="btn sm alt" data-i="${o.id}" data-s="siap">Siap, panggil pembeli</button>`:`<button class="btn sm" data-i="${o.id}" data-s="selesai">Dah ambil</button>`}</div></div>`).join(''):'<p style="color:var(--mut)">Tiada order masuk lagi.</p>';p.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>db.collection('orders').doc(b.dataset.i).update({status:b.dataset.s}))}
+else if(tab=='rec'){const t=orders.filter(o=>o.day==today),sum=t.reduce((a,o)=>a+o.total,0);if(!rf.day)rf.day=today;
+const rtot=()=>menu.reduce((a,m)=>a+(rf.q[m.id]||0)*m.price,0);
+p.innerHTML=`<div class="form"><div class="total">Jualan hari ini: ${RM(sum)}</div><div>${t.length} order hari ini</div></div>
+<div class="form" style="margin-top:16px"><h3 style="font-size:24px;color:var(--cheese)">➕ Tambah rekod jualan</h3><label>Tarikh<input type="date" data-rf="day" value="${esc(rf.day)}"></label><label>Nama (pilihan)<input data-rf="name" value="${esc(rf.name)}" placeholder="cth: Jualan kaunter"></label><label>Bilik (pilihan)<input data-rf="room" value="${esc(rf.room)}"></label>${menu.map(m=>`<label>${m.em||''} ${esc(m.name)} (${RM(m.price)}) — berapa pax<input type="number" min="0" step="1" inputmode="numeric" data-rq="${m.id}" value="${rf.q[m.id]||''}"></label>`).join('')}<label>Bayaran<select data-rf="pay"><option${rf.pay=='Tunai'?' selected':''}>Tunai</option><option${rf.pay=='QR'?' selected':''}>QR</option></select></label><div class="total" id="rft">${RM(rtot())}</div><button class="btn" id="radd">Tambah rekod</button></div>
+<div class="scroll" style="margin-top:16px"><table><tr><th>Tarikh</th><th>Nama</th><th>Bilik</th><th>Item</th><th>Jumlah</th><th>Bayar</th><th></th></tr>${orders.map(o=>`<tr><td>${esc(o.day)}</td><td>${esc(o.name||'')}</td><td>${esc(o.room)}</td><td>${o.items.map(i=>esc(i.name)+'×'+i.qty).join(', ')}</td><td>${RM(o.total)}</td><td>${esc(o.pay)}</td><td><button class="btn sm" data-del="${o.id}" aria-label="Padam rekod ${esc(o.name||'')}">🗑️ Padam</button></td></tr>`).join('')}</table></div>`;
+p.querySelectorAll('[data-rf]').forEach(i=>i.oninput=()=>{rf[i.dataset.rf]=i.value});
+p.querySelectorAll('[data-rq]').forEach(i=>i.oninput=()=>{rf.q[i.dataset.rq]=Math.max(0,Math.floor(+i.value)||0);$('#rft').textContent=RM(rtot())});
+$('#radd').onclick=async()=>{const items=menu.filter(m=>rf.q[m.id]>0).map(m=>({id:m.id,name:m.name,qty:rf.q[m.id],price:m.price}));
+if(!items.length)return alert('Isi sekurang-kurangnya satu hidangan.');if(!/^\d{4}-\d{2}-\d{2}$/.test(rf.day))return alert('Pilih tarikh.');
+const o={items,total:rtot(),name:rf.name.trim()||'Jualan kaunter',phone:'',room:rf.room.trim()||'-',pay:rf.pay,status:'selesai',ts:rf.day==today?Date.now():new Date(rf.day+'T12:00:00').getTime(),day:rf.day};
+try{await db.order(o,true);rf={day:'',name:'',room:'',pay:rf.pay,q:{}};ra()}catch(e){alert('Rekod gagal ditambah. Cuba lagi.')}};
+p.querySelectorAll('[data-del]').forEach(b=>b.onclick=async()=>{const o=orders.find(x=>x.id==b.dataset.del);if(!o)return;
+if(!confirm('Padam rekod ini?\n'+(o.name||'')+' · '+o.items.map(i=>i.name+'×'+i.qty).join(', ')+' · '+RM(o.total)+'\n\nPax akan dipulangkan ke had hari itu.'))return;
+try{await db.delOrder(o)}catch(e){alert('Rekod gagal dipadam.')}})}
+else if(tab=='st'&&staff){if(!pend&&p.querySelector('#sm')&&p.contains(document.activeElement))return;
+const P=pend,e=((me&&me.email)||'').toLowerCase(),c=EM(),ap=P?(P.approvals||[]):[],lbl=x=>x==c[0]?'Manager':'Cashier',H='font-size:24px;color:var(--cheese)';
+p.innerHTML=`<div class="form"><h3 style="${H}">🔑 Akses staf</h3><div>Manager: <b>${esc(c[0])}</b></div><div>Cashier: <b>${esc(c[1])}</b></div><p style="margin:0;color:var(--mut)">Email staf hanya boleh ditukar jika <b>kedua-dua</b> manager dan cashier semasa bersetuju: seorang hantar cadangan, seorang lagi meluluskan. Pastikan email baru sudah ada dalam Firebase Authentication (Email/Password) dahulu.</p></div>`+
+(P?`<div class="ord" style="margin-top:16px"><b>Cadangan menunggu kelulusan</b><div style="margin:8px 0">Dicadang oleh ${esc(P.by)}<br>Manager baru: <b>${esc(P.manager)}</b><br>Cashier baru: <b>${esc(P.cashier)}</b></div><div>${c.map(x=>`${ap.includes(x)?'✅':'⏳'} ${lbl(x)} (${esc(x)})`).join('<br>')}</div><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">${ap.includes(e)?'':'<button class="btn sm alt" id="sok">✅ Lulus</button>'}<button class="btn sm" id="sno">${ap.includes(e)?'Batal cadangan':'Tolak'}</button></div></div>`
+:`<div class="form" style="margin-top:16px"><h3 style="${H}">Cadangkan tukar email</h3><label>Email manager<input type="email" id="sm" value="${esc(c[0])}" autocomplete="off"></label><label>Email cashier<input type="email" id="sc" value="${esc(c[1])}" autocomplete="off"></label><button class="btn" id="ss">Hantar cadangan</button><div class="err" id="serr" role="alert"></div></div>`);
+if($('#ss'))$('#ss').onclick=async()=>{const m=$('#sm').value.trim().toLowerCase(),n=$('#sc').value.trim().toLowerCase(),er=$('#serr'),ok=x=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(x);
+if(!ok(m)||!ok(n)){er.textContent='Masukkan email yang sah.';return}
+if(m==n){er.textContent='Manager dan cashier mesti email yang berbeza.';return}
+if(m==c[0]&&n==c[1]){er.textContent='Tiada perubahan.';return}
+if(!confirm('Hantar cadangan ini?\n\nManager: '+m+'\nCashier: '+n+'\n\nIa hanya berkuat kuasa selepas '+(e==c[0]?'cashier':'manager')+' semasa meluluskan.'))return;
+try{await db.doc('config/pending').set({manager:m,cashier:n,by:e,approvals:[e],ts:Date.now()});er.textContent=''}catch(x){er.textContent='Gagal menghantar cadangan. Pastikan peraturan Firestore terkini sudah dipublish.'}};
+if($('#sok'))$('#sok').onclick=async()=>{if(!confirm('Lulus tukar akses staf?\n\nManager baru: '+P.manager+'\nCashier baru: '+P.cashier+(P.manager!=c[0]&&e==c[0]||P.cashier!=c[1]&&e==c[1]?'\n\nAnda akan hilang akses staf.':'')))return;
+try{await db.doc('config/pending').set({...P,approvals:[...ap,e]})}catch(x){alert('Gagal meluluskan. Cadangan mungkin sudah berubah atau dibatalkan.')}};
+if($('#sno'))$('#sno').onclick=async()=>{if(!confirm(ap.includes(e)?'Batalkan cadangan ini?':'Tolak cadangan ini? Akses staf tidak akan berubah.'))return;try{await db.doc('config/pending').delete()}catch(x){alert('Gagal. Cuba lagi.')}}}
+else if(staff){const dis=mgr?'':' disabled';p.innerHTML=(mgr?'':'<p style="color:var(--mut)">Anda boleh tukar gambar hidangan dan set had pax hari ini. Harga dan baki hanya manager.</p>')+menu.map(m=>`<div class="ord"><b>${m.em||''} ${esc(m.name)}</b><div class="row" style="justify-content:flex-start;margin:10px 0">${m.img?`<img class="pic sm" src="${esc(m.img)}" alt="">`:`<span style="font-size:40px">${m.em||'🍽️'}</span>`}<label class="btn sm alt" style="cursor:pointer;display:inline-block">📷 ${m.img?'Tukar':'Letak'} gambar<input type="file" accept="image/*" hidden data-img="${m.id}"></label>${m.img?`<button class="btn sm" data-rm="${m.id}">Buang gambar</button>`:''}</div><div class="row" style="flex-wrap:wrap;margin-top:8px"><label>Harga (RM)<input type="number" step="0.5" value="${m.price}" data-f="price"${dis} data-i="${m.id}"></label><label>Baki (kosong = tiada had)<input type="number" value="${m.stock}" data-f="stock"${dis} data-i="${m.id}"></label><label>Had pax hari ini (kosong = tiada had)<input type="number" min="0" step="1" value="${lim(m)?lim(m).max:''}" data-lim="${m.id}"></label><label>Perisa / keterangan<input value="${esc(m.desc||'')}" data-f="desc"${dis} data-i="${m.id}"></label><label style="display:flex;gap:8px;align-items:center;flex-direction:row"><input type="checkbox" ${m.sold?'checked':''} data-f="sold"${dis} data-i="${m.id}"> Habis (sold)</label></div><div style="margin-top:8px">${lim(m)?`Hari ini: <b>${lim(m).n}</b> / ${lim(m).max} pax dibeli · ${lim(m).left>0?'tinggal <b>'+lim(m).left+'</b>':'<span class="tag">HABIS</span>'}`:`Hari ini: <b>${usedToday(m)}</b> pax dibeli · tiada had`}</div></div>`).join('')
+p.querySelectorAll('[data-img]').forEach(i=>i.onchange=async()=>{const f=i.files[0];if(!f)return;try{await db.doc('menuimg/'+i.dataset.img).set({img:await shrink(f)})}catch(e){alert('Gambar gagal disimpan. Cuba gambar lain.')}});
+p.querySelectorAll('[data-lim]').forEach(i=>i.onchange=()=>{const v=i.value.trim();db.doc('daylimit/'+i.dataset.lim).set({limit:v===''?null:Math.max(0,Math.floor(+v)||0),day:TD()}).catch(()=>alert('Had gagal disimpan.'))});
+p.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>db.doc('menuimg/'+b.dataset.rm).set({img:''}));
+p.querySelectorAll('[data-f]').forEach(i=>i.onchange=()=>{const f=i.dataset.f,m=menu.find(x=>x.id==i.dataset.i);const v=f=='sold'?i.checked:f=='price'?+i.value:f=='stock'?i.value:i.value;db.collection('menu').doc(m.id).set({...m,[f]:v})});}}
+
+// email staf: dari Firestore (config/staff) jika pernah ditukar, jika tidak dari config.js
+const mgrE=()=>((STAFF&&STAFF.manager)||CFG.managerEmail||'').trim().toLowerCase(),cashE=()=>((STAFF&&STAFF.cashier)||CFG.cashierEmail||'').trim().toLowerCase(),EM=()=>[mgrE(),cashE()];
+function shrink(file,max=480){return new Promise((ok,no)=>{const r=new FileReader();r.onerror=no;r.onload=()=>{const im=new Image();im.onerror=no;im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',.78))};im.src=r.result};r.readAsDataURL(file)})}
+// bila kedua-dua email semasa sudah lulus cadangan, akses staf ditukar (peraturan Firestore menyemak semula di pelayan)
+let applying=false;
+async function applyPend(){const P=pend,c=EM();if(!P||!staff||applying)return;
+  if(P.manager==c[0]&&P.cashier==c[1]){try{await db.doc('config/pending').delete()}catch(x){}return}
+  if(!c.every(x=>(P.approvals||[]).includes(x)))return;
+  applying=true;try{await db.doc('config/staff').set({manager:P.manager,cashier:P.cashier});await db.doc('config/pending').delete()}catch(x){}applying=false}
+// ===== Live: penanda sambungan + notis order baru (bunyi, mesej, tajuk tab) =====
+let seen=null,pc=null,unread=0,toastT;const baseTitle=document.title;
+function setLive(ok){const e=$('#live');if(!e)return;e.textContent=ok?'🟢 Live — order baru muncul sendiri, tak perlu reload'+(CFG.mode=='firebase'?'':' (mod demo: hanya tab/peranti ini)'):'🔴 Sambungan terputus — cuba semula bila ada internet';e.style.color=ok?'var(--mint)':'var(--red)'}
+addEventListener('online',()=>setLive(true));addEventListener('offline',()=>setLive(false));
+const unlockPing=()=>{if(!pc){try{pc=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(pc&&pc.state=='suspended')pc.resume()};
+addEventListener('pointerdown',unlockPing);addEventListener('keydown',unlockPing);
+function ping(){if(!pc)return;try{pc.resume();const t=pc.currentTime;[[880,0],[1175,.16],[880,.32],[1175,.48]].forEach(([f,d])=>{const o=pc.createOscillator(),g=pc.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t+d);g.gain.linearRampToValueAtTime(.25,t+d+.01);g.gain.exponentialRampToValueAtTime(.0001,t+d+.14);o.connect(g);g.connect(pc.destination);o.start(t+d);o.stop(t+d+.16)})}catch(e){}}
+function toast(msg){let t=$('#toast');if(!t){t=document.createElement('div');t.id='toast';t.setAttribute('role','status');t.style.cssText='position:fixed;left:50%;top:max(16px,env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:50;background:var(--cheese);color:var(--cardink);padding:12px 20px;border-radius:999px;box-shadow:0 6px 0 var(--red);font-weight:800;text-align:center';document.body.appendChild(t)}t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,5000)}
+function newOrders(list){if(seen){const n=list.filter(o=>!seen.has(o.id)&&o.status=='baru').length;if(n){ping();toast('🔔 '+n+' order baru masuk!');if(navigator.vibrate)navigator.vibrate([200,100,200]);if(document.hidden){unread+=n;document.title='🔔 ('+unread+') Order baru · '+baseTitle}}}seen=new Set(list.map(o=>o.id))}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){unread=0;document.title=baseTitle}});
+$('#ap').addEventListener('focusout',()=>{if(raWait)setTimeout(ra,0)});
+async function chk(){try{me=await usr.me();const e=(me.email||'').toLowerCase();staff=!!e&&EM().includes(e);mgr=staff&&e==mgrE();
+if(e&&!staff&&FB){await FB.logout();alert('Email ini tiada akses staf.');return}
+$('#lo').hidden=!staff;$('#stf').textContent=staff?'Panel staf':'Staf';
+if(staff&&db&&!unsub){unsub=db.collection('orders').orderBy('ts','desc').onSnapshot(s=>{orders=s.docs.map(d=>({id:d.id,...d.data()}));setLive(true);newOrders(orders);ra()},()=>setLive(false))||true}
+if(staff&&db&&!punsub){punsub=db.doc('config/pending').onSnapshot(d=>{pend=(d&&d.data&&d.data())||null;applyPend();ra()},()=>{})||true}
+if(!staff){seen=null;if(typeof punsub=='function')punsub();punsub=null;pend=null;if(typeof unsub=='function')unsub();unsub=null;orders=[];$('#admin').hidden=true;$('#ap').innerHTML=''}else ra()}catch(e){}}
+rm();
+// ===== Lapisan data: 'local' (demo, peranti ini sahaja) atau 'firebase' (sebenar) =====
+const CFG=window.KVFC_CONFIG||{mode:'local'};
+const LS={get:k=>JSON.parse(localStorage.getItem('kvfc:'+k)||'null'),set:(k,v)=>localStorage.setItem('kvfc:'+k,JSON.stringify(v))};
+const subs={},emit=k=>(subs[k]||[]).forEach(f=>f());
+// mod demo: bila tab/tetingkap lain (origin sama) tukar data, tab ini terus dikemas kini tanpa reload
+addEventListener('storage',ev=>{const k=ev.key;if(k&&!k.startsWith('kvfc:'))return;const c=k?k.slice(5):null;Object.keys(subs).forEach(s=>{if(!c||s==c||s.startsWith(c+'/'))emit(s)})});
+function localDB(){
+  const put=(c,id,d,merge)=>{const all=LS.get(c)||{};all[id]=merge?{...all[id],...d}:d;LS.set(c,all);emit(c);emit(c+'/'+id)};
+  return{
+    async order(o,force){const L=LS.get('daylimit')||{},U=LS.get('used')||{};
+      o.items.forEach(i=>{const l=L[i.id],n=(U[o.day+'_'+i.id]||{}).n||0;if(!force&&l&&l.day==o.day&&l.limit!=null&&l.limit!==''&&n+i.qty>+l.limit){const e=new Error('habis');e.code='habis';e.item=i.name;e.id=i.id;e.left=Math.max(0,+l.limit-n);throw e}});
+      o.items.forEach(i=>put('used',o.day+'_'+i.id,{day:o.day,item:i.id,n:((U[o.day+'_'+i.id]||{}).n||0)+i.qty}));
+      put('orders','o'+Date.now()+Math.random().toString(36).slice(2,6),o)},
+    async delOrder(o){const U=LS.get('used')||{};
+      o.items.forEach(i=>{const k=o.day+'_'+i.id;if(U[k])put('used',k,{...U[k],n:Math.max(0,(+U[k].n||0)-i.qty)})});
+      const all=LS.get('orders')||{};delete all[o.id];LS.set('orders',all);emit('orders')},
+    collection(c){let ord=null;
+      const snap=()=>{const docs=Object.entries(LS.get(c)||{}).map(([id,d])=>({id,data:()=>d}));if(ord)docs.sort((x,y)=>(y.data()[ord]||0)-(x.data()[ord]||0));return{docs}};
+      const q={orderBy(f){ord=f;return q},
+        async add(d){put(c,'o'+Date.now()+Math.random().toString(36).slice(2,6),d)},
+        onSnapshot(fn){(subs[c]=subs[c]||[]).push(()=>fn(snap()));fn(snap())},
+        doc(id){return{update:async d=>put(c,id,d,true),set:async d=>put(c,id,d)}}};
+      return q},
+    doc(path){const[c,id]=path.split('/'),get=()=>({data:()=>(LS.get(c)||{})[id]});
+      return{set:async d=>put(c,id,d),delete:async()=>{const all=LS.get(c)||{};delete all[id];LS.set(c,all);emit(c);emit(c+'/'+id)},onSnapshot(fn){(subs[c+'/'+id]=subs[c+'/'+id]||[]).push(()=>fn(get()));fn(get())}}}}}
+async function fbDB(cfg){
+  const V='10.12.2',B='https://www.gstatic.com/firebasejs/'+V+'/';
+  const [A,F,U]=await Promise.all([import(B+'firebase-app.js'),import(B+'firebase-firestore.js'),import(B+'firebase-auth.js')]);
+  const app=A.initializeApp(cfg.firebase),fs=F.getFirestore(app),au=U.getAuth(app);
+  const wrap=(ref,path)=>({orderBy:(f,d)=>wrap(F.query(ref,F.orderBy(f,d)),path),onSnapshot:(fn,err)=>F.onSnapshot(ref,fn,err),add:d=>F.addDoc(ref,d),
+    doc:id=>{const r=F.doc(fs,path,id);return{update:d=>F.updateDoc(r,d),set:d=>F.setDoc(r,d)}}});
+  const order=(o,force)=>F.runTransaction(fs,async tx=>{
+    const ur=o.items.map(i=>F.doc(fs,'used',o.day+'_'+i.id)),lr=o.items.map(i=>F.doc(fs,'daylimit',i.id));
+    const us=await Promise.all(ur.map(r=>tx.get(r))),ls=await Promise.all(lr.map(r=>tx.get(r)));
+    o.items.forEach((i,k)=>{const n=us[k].exists()?us[k].data().n:0,l=ls[k].exists()?ls[k].data():null;
+      if(!force&&l&&l.day==o.day&&l.limit!=null&&l.limit!==''&&n+i.qty>+l.limit){const e=new Error('habis');e.code='habis';e.item=i.name;e.id=i.id;e.left=Math.max(0,+l.limit-n);throw e}});
+    o.items.forEach((i,k)=>tx.set(ur[k],{day:o.day,item:i.id,n:(us[k].exists()?us[k].data().n:0)+i.qty}));
+    tx.set(F.doc(F.collection(fs,'orders')),o)});
+  const delOrder=o=>F.runTransaction(fs,async tx=>{
+    const ur=o.items.map(i=>F.doc(fs,'used',o.day+'_'+i.id)),us=await Promise.all(ur.map(r=>tx.get(r)));
+    o.items.forEach((i,k)=>{if(us[k].exists())tx.update(ur[k],{n:Math.max(0,(+us[k].data().n||0)-i.qty)})});
+    tx.delete(F.doc(fs,'orders',o.id))});
+  return{db:{order,delOrder,collection:c=>wrap(F.collection(fs,c),c),doc:p=>{const r=F.doc(fs,p);return{set:d=>F.setDoc(r,d),delete:()=>F.deleteDoc(r),onSnapshot:(fn,err)=>F.onSnapshot(r,fn,err)}}},
+    cur:()=>au.currentUser,onAuth:fn=>U.onAuthStateChanged(au,fn),
+    login:(e,p)=>U.signInWithEmailAndPassword(au,e,p),logout:()=>U.signOut(au)}}
+let FB=null;
+async function boot(){
+  if(CFG.mode=='firebase'){
+    FB=await fbDB(CFG);db=FB.db;
+    usr={me:async()=>{const u=FB.cur();return{email:u?u.email:null}}};
+  }else{
+    db=localDB();usr={me:async()=>({email:LS.get('session')})};
+    document.querySelector('footer').textContent='KVFC © 2026 · Mod demo: data disimpan dalam peranti ini sahaja (log masuk staf hanya untuk ujian).';
+  }
+  db.collection('menu').onSnapshot(s=>{s.docs.forEach(d=>{const m=menu.find(x=>x.id==d.id);if(m)Object.assign(m,d.data())});rm();ra()},()=>{});
+  db.collection('menuimg').onSnapshot(s=>{s.docs.forEach(d=>{const m=menu.find(x=>x.id==d.id);if(m)m.img=(d.data()||{}).img||''});rm();ra()},()=>{});
+  db.collection('daylimit').onSnapshot(s=>{limits={};s.docs.forEach(d=>limits[d.id]=d.data());rm();ra()},()=>{});
+  db.collection('used').onSnapshot(s=>{used={};s.docs.forEach(d=>used[d.id]=d.data());rm();ra()},()=>{});
+  let cf=0;const go=()=>{if(!cf){cf=1;if(FB)FB.onAuth(()=>chk())}else chk()};
+  db.doc('config/staff').onSnapshot(d=>{const v=d&&d.data&&d.data();STAFF=v&&v.manager&&v.cashier?v:null;go()},()=>{if(!cf)go()});
+  let day=TD();setInterval(()=>{if(day!=TD()){day=TD();rm();ra()}},60000);
+  chk();
+}
+const dlg=$('#lg'),openAdmin=()=>{const a=$('#admin');a.hidden=false;a.scrollIntoView()};
+$('#stf').onclick=()=>{if(staff){const a=$('#admin');a.hidden=!a.hidden;if(!a.hidden)a.scrollIntoView();return}$('#lerr').textContent='';dlg.showModal();$('#le').focus()};
+$('#lc').onclick=()=>dlg.close();
+$('#lf').onsubmit=async ev=>{ev.preventDefault();const e=$('#le').value.trim().toLowerCase(),p=$('#lp').value;
+  if(!EM().includes(e)){$('#lerr').textContent='Email ini tiada akses staf.';return}
+  try{if(FB)await FB.login(e,p);else LS.set('session',e);$('#lp').value='';dlg.close();await chk();if(staff)openAdmin()}catch(x){$('#lerr').textContent='Log masuk gagal. Semak email dan kata laluan.'}};
+$('#lo').onclick=async()=>{try{if(FB)await FB.logout();else LS.set('session',null)}catch(x){}await chk()};
+boot().catch(e=>{console.error(e);$('#stf').hidden=true;$('#res').innerHTML='<div class="msg" style="background:var(--red);color:#fff">Sambungan pangkalan data gagal. Semak config.js.</div>'});
+</script>
+</body>
+</html>
